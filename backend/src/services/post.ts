@@ -17,15 +17,20 @@ export const createPost = async (req: Request, res: Response) => {
   res.send(post);
 };
 
-export const getPosts = async (res: Response) => {
+export const getPosts = async (req: Request, res: Response) => {
   const posts = await postRepository.find();
   res.send(posts);
 };
 
 export const deletePost = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { affected } = await postRepository.delete(id);
-  affected === 0
-    ? res.status(404).send("Post no encontrado")
-    : res.send("Post eliminado");
+  const post = await postRepository.findOneBy({ id: parseInt(id) });
+
+  if (!post) {
+    res.status(404).send("Post no encontrado");
+    return;
+  }
+
+  await postRepository.delete(post);
+  res.send(post);
 };

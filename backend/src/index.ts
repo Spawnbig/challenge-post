@@ -2,9 +2,11 @@ import express, { Express, Request, Response } from "express";
 import environment from "./config/environment";
 import { createPost, deletePost, getPosts } from "./services/post";
 import { AppDataSource } from "./config/db";
+import cors from 'cors'
 
 const app: Express = express();
 app.use(express.json());
+app.use(cors())
 
 const initServer = async () => {
   try {
