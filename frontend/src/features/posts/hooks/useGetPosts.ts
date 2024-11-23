@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { useGetPostsQuery } from "../redux/posts/postApi"
+import { useGetPostsQuery } from "../redux/postApi"
 import type { Post } from "../interfaces/post"
 
 const useGetPosts = () => {

@@ -1,5 +1,5 @@
-import type { Post } from "../../../../interfaces/post"
-import { useDeletePostMutation } from "../../../../redux/posts/postApi"
+import type { Post } from "@/features/posts/interfaces/post"
+import { useDeletePostMutation } from "@/features/posts/redux/postApi"
 
 interface Props {
   data: Post[]

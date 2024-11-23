@@ -1,4 +1,4 @@
-import { AddPostComponent, PostList } from "./components"
+import { AddPostComponent, PostList } from "@features/posts/components"
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import useCreatePost from "../../hooks/useCreatePost"
+import { useCreatePost } from "../../hooks"
 
 const AddPostComponent = () => {
   const { description, isValid, name, savePost, setDescription, setName } =

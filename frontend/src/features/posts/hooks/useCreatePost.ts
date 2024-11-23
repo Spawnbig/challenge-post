@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAddPostMutation } from "../redux/posts/postApi"
+import { useAddPostMutation } from "../redux/postApi"
 
 const useCreatePost = () => {
   const [name, setName] = useState("")

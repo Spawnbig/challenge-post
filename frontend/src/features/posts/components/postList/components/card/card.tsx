@@ -1,4 +1,4 @@
-import { useDeletePostMutation } from "../../../../redux/posts/postApi"
+import { useDeletePostMutation } from "@/features/posts/redux/postApi"
 
 interface Props {
   id: number
