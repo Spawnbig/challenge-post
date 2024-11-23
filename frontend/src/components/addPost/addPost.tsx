@@ -6,7 +6,7 @@ const AddPostComponent = () => {
 
   return (
     <section className="flex flex-col gap-2">
-      <h1 className="text-2xl">Añadir un nuevo post</h1>
+      <h1 className="text-2xl font-bold">Añadir un nuevo post</h1>
       <label className="form-control">
         <div className="label">
           <span className="label-text">Nombre</span>

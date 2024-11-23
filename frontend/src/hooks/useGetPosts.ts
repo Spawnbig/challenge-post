@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react"
+import { useMemo, useState } from "react"
 import { useGetPostsQuery } from "../redux/posts/postApi"
 import type { Post } from "../interfaces/post"
 
 const useGetPosts = () => {
-  const { data } = useGetPostsQuery(undefined)
-  const [posts, setPosts] = useState<Post[]>([])
+  const { data: posts } = useGetPostsQuery(undefined)
   const [search, setSearch] = useState("")
+  const [query, setQuery] = useState("")
 
-  useEffect(() => {
-    const filteredData = data?.filter((post: Post) =>
-      post.name.includes(search),
-    )
-    setPosts(filteredData ?? [])
-  }, [search, data  ])
+  const filteredPosts = useMemo(() => {
+    if (!posts) return []
+    return posts
+      .filter((post: Post) =>
+        post.name.toLowerCase().includes(query.toLowerCase()),
+      )
+      .reverse()
+  }, [posts, query])
 
-  return { posts, setSearch }
+  const triggerSearch = () => setQuery(search)
+  const resetSearch = () => setQuery("")
+
+  return { posts: filteredPosts, search, setSearch, resetSearch, triggerSearch }
 }
 
 export default useGetPosts
