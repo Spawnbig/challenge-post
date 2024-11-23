@@ -14,12 +14,10 @@ const CardComponent = ({ name, description, id }: Props) => {
       <div className="card-header flex justify-between">
         <h5 className="card-title">{name}</h5>
         <button
-          className="relative z-10 scale-150 text-error group"
+          className="relative z-10 text-error group"
           onClick={() => deletePost(id)}
         >
-          <div className="hover:animate-shake flex items-center justify-center">
-            <i className="icon-[tabler--trash]"></i>
-          </div>
+          <span className="icon-[tabler--trash] group-hover:animate-shake size-5"></span>
         </button>
       </div>
       <div className="card-body break-words overflow-hidden">

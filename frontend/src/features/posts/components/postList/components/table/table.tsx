@@ -26,12 +26,11 @@ const TableComponent = ({ data }: Props) => {
               </td>
               <td>
                 <button
-                  className="relative z-10 scale-150 text-error group"
+                  className="relative z-10 text-error group flex items-center group"
                   onClick={() => deletePost(id)}
                 >
-                  <div className="hover:animate-shake flex items-center justify-center">
-                    <i className="icon-[tabler--trash]"></i>
-                  </div>
+                  <span className="icon-[tabler--trash] group-hover:animate-shake size-5"></span>
+                  Eliminar post
                 </button>
               </td>
             </tr>

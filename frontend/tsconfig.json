@@ -8,7 +8,7 @@
       ],
       "@features/*": [
         "src/features/*"
-      ],
+      ]
     },
     "useDefineForClassFields": true,
     "lib": [
