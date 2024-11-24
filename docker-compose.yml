@@ -39,7 +39,7 @@ services:
     networks:
       - posts-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME} -h localhost"]
       interval: 5s
       timeout: 5s
       retries: 5

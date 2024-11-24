@@ -1,6 +1,7 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query"
 import { createApi } from "@reduxjs/toolkit/query/react"
 import type { Post } from "../interfaces/post"
+import { toast } from "react-toastify"
 
 export const postApi = createApi({
   reducerPath: "postApi",
@@ -9,6 +10,13 @@ export const postApi = createApi({
   endpoints: builder => ({
     getPosts: builder.query({
       query: () => "/post",
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled
+        } catch (error) {
+          toast("Error al obtener los posts", { type: "error" })
+        }
+      },
     }),
     addPost: builder.mutation({
       query: ({ name, description }) => ({
@@ -21,13 +29,16 @@ export const postApi = createApi({
         { name, description },
         { dispatch, queryFulfilled },
       ) {
-        const { data, meta } = await queryFulfilled
-        if (meta?.response?.ok) {
+        try {
+          const { data } = await queryFulfilled
           dispatch(
             postApi.util.updateQueryData("getPosts", undefined, draft => {
               draft?.push(data)
             }),
           )
+          toast("Post creado correctamente", { type: "success" })
+        } catch (error) {
+          toast("Error al crear el post", { type: "error" })
         }
       },
     }),
@@ -38,13 +49,16 @@ export const postApi = createApi({
       }),
       invalidatesTags: ["Post"],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        const { meta } = await queryFulfilled
-        if (meta?.response?.ok) {
+        try {
+          await queryFulfilled
           dispatch(
             postApi.util.updateQueryData("getPosts", undefined, draft => {
               return draft?.filter((post: Post) => post.id !== id)
             }),
           )
+          toast("Post eliminado correctamente", { type: "success" })
+        } catch (error) {
+          toast("Error al eliminar el post", { type: "error" })
         }
       },
     }),
