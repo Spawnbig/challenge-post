@@ -1,0 +1,19 @@
+services:
+  backend:
+    container_name: post-backend-prod
+    env_file:
+      - .env.prod
+  frontend:
+    container_name: post-frontend-prod
+    ports:
+      - "80:80"
+    networks:
+      - posts-network
+    env_file:
+      - .env.prod
+    build: 
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+  postgres:
+    env_file:
+      - .env.prod

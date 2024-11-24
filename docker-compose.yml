@@ -35,3 +35,6 @@ services:
       - "5432:5432"
     networks:
       - posts-network
+networks:
+  posts-network:
+    driver: bridge

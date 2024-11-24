@@ -1,5 +1,6 @@
 services:
   backend:
+    container_name: post-backend-dev
     build: 
       dockerfile: Dockerfile.dev
     volumes:
@@ -8,13 +9,10 @@ services:
     working_dir: /app
 
   frontend:
+    container_name: post-frontend-dev
     build: 
       dockerfile: Dockerfile.dev
     volumes:
       - ./frontend:/app
       - /app/node_modules 
     working_dir: /app
-
-networks:
-  posts-network:
-    driver: bridge

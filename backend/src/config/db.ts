@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import environment from "./environment";
+import * as path from "path";
+
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,6 +12,6 @@ export const AppDataSource = new DataSource({
   database: environment.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: ["src/models/**/*.ts"],
-  migrations: ["src/migration/**/*.ts"],
+  entities: [path.join(__dirname, "../models/**/*.{js,ts}")],
+  migrations: [path.join(__dirname, "../migration/**/*.{js,ts}")],
 });
