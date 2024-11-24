@@ -11,10 +11,6 @@ const PostList = () => {
   const { posts, setSearch, triggerSearch, resetSearch } = useGetPosts()
   const [isTableView, setIsTableView] = useState(true)
 
-  if (posts.length === 0) {
-    return <p className="text-center text-lg">Aún no hay posts para mostrar</p>
-  }
-
   return (
     <>
       <SearchPostComponent
@@ -25,7 +21,9 @@ const PostList = () => {
         resetSearch={resetSearch}
       />
 
-      {isTableView ? (
+      {posts.length === 0 ? (
+        <p className="text-center text-lg">Aún no hay posts para mostrar</p>
+      ) : isTableView ? (
         <TableComponent data={posts} />
       ) : (
         <>

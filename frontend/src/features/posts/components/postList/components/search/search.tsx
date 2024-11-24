@@ -21,7 +21,7 @@ const SearchPostComponent = ({
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex md:flex-row md:justify-between md:gap-0 flex-col-reverse items-end gap-3">
       <div className="join max-w-xl">
         <input
           type="search"

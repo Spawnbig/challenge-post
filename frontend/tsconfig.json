@@ -8,7 +8,10 @@
       ],
       "@features/*": [
         "src/features/*"
-      ]
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
     },
     "useDefineForClassFields": true,
     "lib": [

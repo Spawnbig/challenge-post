@@ -1,5 +1,6 @@
 import type { Post } from "@/features/posts/interfaces/post"
 import { useDeletePostMutation } from "@/features/posts/redux/postApi"
+import { ModalDeleteItem } from "@/shared"
 
 interface Props {
   data: Post[]
@@ -25,13 +26,10 @@ const TableComponent = ({ data }: Props) => {
                 {description}
               </td>
               <td>
-                <button
-                  className="relative z-10 text-error group flex items-center group"
-                  onClick={() => deletePost(id)}
-                >
-                  <span className="icon-[tabler--trash] group-hover:animate-shake size-5"></span>
-                  Eliminar post
-                </button>
+                <ModalDeleteItem
+                  title={name}
+                  onConfirm={() => deletePost(id)}
+                />
               </td>
             </tr>
           ))}
