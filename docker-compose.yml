@@ -10,7 +10,8 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_HOST=${DB_HOST}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - posts-network
 
@@ -23,6 +24,8 @@ services:
       - VITE_API_URL=${VITE_API_URL}
     networks:
       - posts-network
+    depends_on:
+      - backend
 
   postgres:
     image: postgres:12
@@ -35,6 +38,12 @@ services:
       - "5432:5432"
     networks:
       - posts-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 networks:
   posts-network:
     driver: bridge
