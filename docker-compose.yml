@@ -1,0 +1,49 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "${PORT}:4000"
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - posts-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    networks:
+      - posts-network
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:12
+    container_name: post-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    networks:
+      - posts-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME} -h localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  posts-network:
+    driver: bridge
